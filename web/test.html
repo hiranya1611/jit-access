@@ -1,0 +1,18 @@
+import sqlite3, <!DOCTYPE html>
+<html>
+<body>
+<h2>JIT Access Request Test</h2>
+<button onclick="send()">Request Access</button>
+
+<script>
+async function send(){
+    let response = await fetch("http://localhost:5000/request-access",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({username:"admin",resource:"server"})
+    });
+    alert(await response.text());
+}
+</script>
+</body>
+</html>
