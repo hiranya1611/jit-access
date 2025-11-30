@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>Request Access</title></head>
+  <body>
+    <h2>Request Admin Access</h2>
+    <form method="POST" action="/request_access">
+      Username: <input name="username" required><br><br>
+      Duration (minutes): <input type="number" name="duration" required min="1"><br><br>
+      Reason: <input name="reason" required><br><br>
+      SSH Public Key: <br>
+      <textarea name="pubkey" rows="4" cols="60"></textarea><br><br>
+      <button type="submit">Request Access</button>
+    </form>
+    <p><a href="/admin">Admin Dashboard</a></p>
+  </body>
+</html>

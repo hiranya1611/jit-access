@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from datetime import datetime, timedelta
 import sqlite3, bcrypt
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder="../web/tempplates")
 DB_PATH = "../database/jit_access.db"
 
 def conn():

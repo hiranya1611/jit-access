@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head><meta charset="utf-8"><title>Admin Dashboard</title></head>
+  <body>
+    <h2>Access Requests</h2>
+
+    <table border="1" cellpadding="6">
+      <tr>
+        <th>ID</th><th>User</th><th>Status</th>
+        <th>Start</th><th>End</th><th>Actions</th>
+      </tr>
+
+      {% for r in rows %}
+      <tr>
+        <td>{{ r.id }}</td>
+        <td>{{ r.username }}</td>
+        <td>{{ r.status }}</td>
+        <td>{{ r.start_time }}</td>
+        <td>{{ r.end_time }}</td>
+        <td>
+          {% if r.status == "PENDING" %}
+            <form method="post" action="/requests/{{ r.id }}/approve">
+              <button type="submit">Approve</button>
+            </form>
+            <form method="post" action="/requests/{{ r.id }}/deny">
+              <button type="submit">Deny</button>
+            </form>
+          {% elif r.status == "APPROVED" %}
+            <form method="post" action="/requests/{{ r.id }}/revoke">
+              <button type="submit">Revoke</button>
+            </form>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <p><a href="/">Home</a></p>
+  </body>
+</html>
