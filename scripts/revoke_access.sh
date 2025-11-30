@@ -1,9 +1,10 @@
 #!/bin/bash
-USERNAME=$1
+USERNAME="$1"
+SUDOERS_FILE="/etc/sudoers.d/$USERNAME"
 
-if [ -f /etc/sudoers.d/$USERNAME ]; then
-    sudo rm /etc/sudoers.d/$USERNAME
-    echo "[+] Access revoked for $USERNAME"
+if [ -f "$SUDOERS_FILE" ]; then
+    sudo rm -f "$SUDOERS_FILE"
+    echo "Revoked sudo from $USERNAME"
 else
-    echo "No sudo access found."
+    echo "No active sudo rule for $USERNAME"
 fi
