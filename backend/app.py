@@ -77,7 +77,28 @@ def validate(username,resource):
     if datetime.now() < datetime.fromisoformat(row[0]):
         return jsonify({"access": True})
     return jsonify({"access": False})
-    
+
+@app.post("/login")
+def login():
+    data = request.json
+    username = data["username"]
+    password = data["password"]
+
+    c = conn()
+    cur = c.cursor()
+    cur.execute("SELECT password, role FROM users WHERE username=?", (username,))
+    row = cur.fetchone()
+    c.close()
+
+    if not row:
+        return jsonify({"error": "User not found"}), 404
+
+    hashed_password, role = row
+
+    if bcrypt.checkpw(password.encode(), hashed_password):
+        return jsonify({"login": True, "role": role}), 200
+
+    return jsonify({"login": False}), 401
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
